@@ -11,4 +11,3 @@ install:
 
 script:
     - python setup.py test
-    - python -m doctest -v cram.py
