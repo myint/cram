@@ -7,6 +7,7 @@ import os
 import sys
 from distutils.core import setup, Command
 
+
 class test(Command):
     """Runs doctests and Cram tests"""
     description = 'run test suite'
@@ -32,6 +33,7 @@ class test(Command):
             os.environ['COVERAGE'] = '1'
             os.environ['COVERAGE_FILE'] = os.path.abspath('./.coverage')
         cram.main(['-v', 'tests'])
+
 
 def long_description():
     """Get the long description from the README"""

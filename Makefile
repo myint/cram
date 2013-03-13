@@ -40,11 +40,8 @@ coverage:
 	coverage report && \
 	coverage annotate
 
-# E261: two spaces before inline comment
-# E301: expected blank line
-# E302: two new lines between functions/etc.
 pep8:
-	pep8 --ignore=E261,E301,E302 --repeat cram.py setup.py
+	pep8 cram.py setup.py
 
 pyflakes:
 	pyflakes cram.py setup.py

@@ -21,6 +21,7 @@ except ImportError:
 
 __all__ = ['main', 'test']
 
+
 def findtests(paths):
     """Yield tests in paths in sorted order"""
     for p in paths:
@@ -34,6 +35,7 @@ def findtests(paths):
         else:
             yield os.path.normpath(p)
 
+
 def regex(pattern, s):
     """Match a regular expression or return False if invalid.
 
@@ -44,6 +46,7 @@ def regex(pattern, s):
         return re.match(pattern + r'\Z', s)
     except re.error:
         return False
+
 
 def glob(el, l):
     """Match a glob-like pattern.
@@ -72,6 +75,7 @@ def glob(el, l):
 
 annotations = {'glob': glob, 're': regex}
 
+
 def match(el, l):
     """Match patterns based on annotations"""
     for k in annotations:
@@ -79,6 +83,7 @@ def match(el, l):
         if el.endswith(ann) and annotations[k](el[:-len(ann)], l[:-1]):
             return True
     return False
+
 
 class SequenceMatcher(difflib.SequenceMatcher, object):
     """Like difflib.SequenceMatcher, but matches globs and regexes"""
@@ -103,6 +108,7 @@ class SequenceMatcher(difflib.SequenceMatcher, object):
         for n, el in matches:
             self.a[alo + n] = el
         return ret
+
 
 def unified_diff(a, b, fromfile='', tofile='', fromfiledate='',
                  tofiledate='', n=3, lineterm='\n', matcher=SequenceMatcher):
@@ -138,9 +144,11 @@ escapesub = re.compile(r'[\x00-\x09\x0b-\x1f\\\x7f-\xff]').sub
 escapemap = dict((chr(i), r'\x%02x' % i) for i in range(256))
 escapemap.update({'\\': '\\\\', '\r': r'\r', '\t': r'\t'})
 
+
 def escape(s):
     """Like the string-escape codec, but doesn't escape quotes"""
     return escapesub(lambda m: escapemap[m.group(0)], s[:-1]) + ' (esc)\n'
+
 
 def makeresetsigpipe():
     """Make a function to reset SIGPIPE to SIG_DFL (for use in subprocesses).
@@ -153,6 +161,7 @@ def makeresetsigpipe():
         return None
     return lambda: signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
+
 def encodeinput(s):
     """Encode s so it can be used as subprocess input.
 
@@ -163,6 +172,7 @@ def encodeinput(s):
     if sys.platform == 'win32' or sys.version_info == 2:
         return s
     return s.encode(locale.getpreferredencoding())
+
 
 def test(path, shell, indent=2):
     """Run test at path and return input, output, and diff.
@@ -245,6 +255,7 @@ def test(path, shell, indent=2):
         return refout, postout, itertools.chain([firstline], diff)
     return refout, postout, []
 
+
 def prompt(question, answers, auto=None):
     """Write a prompt to stdout and ask for answer in stdin.
 
@@ -272,6 +283,7 @@ def prompt(question, answers, auto=None):
         elif answer and answer in answers.lower():
             return answer
 
+
 def log(msg=None, verbosemsg=None, verbose=False):
     """Write msg to standard out and flush.
 
@@ -283,6 +295,7 @@ def log(msg=None, verbosemsg=None, verbose=False):
         sys.stdout.write(msg)
         sys.stdout.flush()
 
+
 def patch(cmd, diff):
     """Run echo [lines from diff] | cmd -p0"""
     p = subprocess.Popen([cmd, '-p0'], bufsize=-1, stdin=subprocess.PIPE,
@@ -291,6 +304,7 @@ def patch(cmd, diff):
                          close_fds=os.name == 'posix')
     p.communicate(''.join(diff))
     return p.returncode == 0
+
 
 def run(paths, tmpdir, shell, quiet=False, verbose=False, patchcmd=None,
         answer=None, indent=2):
@@ -350,8 +364,8 @@ def run(paths, tmpdir, shell, quiet=False, verbose=False, patchcmd=None,
                         diff = list(diff)
                     for line in diff:
                         log(line)
-                    if (patchcmd and
-                        prompt('Accept this change?', 'yN', answer) == 'y'):
+                    if (patchcmd and prompt('Accept this change?',
+                                            'yN', answer) == 'y'):
                         if patch(patchcmd, diff):
                             log(None, '%s: merged output\n' % path, verbose)
                             os.remove(errpath)
@@ -362,6 +376,7 @@ def run(paths, tmpdir, shell, quiet=False, verbose=False, patchcmd=None,
         % (len(seen), skipped, failed))
     return bool(failed)
 
+
 def which(cmd):
     """Return the patch to cmd or None if not found"""
     for p in os.environ['PATH'].split(os.pathsep):
@@ -370,9 +385,11 @@ def which(cmd):
             return path
     return None
 
+
 def expandpath(path):
     """Expands ~ and environment variables in path"""
     return os.path.expanduser(os.path.expandvars(path))
+
 
 class OptionParser(optparse.OptionParser):
     """Like optparse.OptionParser, but supports setting values through
@@ -420,6 +437,7 @@ class OptionParser(optparse.OptionParser):
             return optparse.OptionParser.parse_args(self, args, values)
         except optparse.OptionValueError:
             self.error(str(sys.exc_info()[1]))
+
 
 def main(args):
     """Main entry point.
