@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """Installs cram"""
 
+from __future__ import with_statement
+
 import os
 import sys
 from distutils.core import setup, Command
