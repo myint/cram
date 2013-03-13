@@ -2,6 +2,10 @@
  Cram: It's test time
 ======================
 
+.. image:: https://travis-ci.org/myint/cram.png?branch=master
+   :target: https://travis-ci.org/myint/cram
+   :alt: Build status
+
 Cram is a functional testing framework for command line applications
 based on Mercurial_'s `unified test format`_.
 

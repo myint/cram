@@ -33,7 +33,8 @@ class test(Command):
 
 def long_description():
     """Get the long description from the README"""
-    return open(os.path.join(sys.path[0], 'README.txt')).read()
+    with open(os.path.join(sys.path[0], 'README.rst')) as readme:
+        return readme.read()
 
 setup(
     author='Brodie Rao',
