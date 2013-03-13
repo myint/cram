@@ -49,7 +49,7 @@ def regex(pattern, s):
 
 
 def glob(el, l):
-    """Match a glob-like pattern.
+    r"""Match a glob-like pattern.
 
     The only supported special characters are * and ?. Escaping is
     supported.
