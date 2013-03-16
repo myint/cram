@@ -9,7 +9,7 @@ from distutils.core import setup, Command
 
 
 class test(Command):
-    """Runs doctests and Cram tests"""
+    """Runs doctests and Cram tests."""
     description = 'run test suite'
     user_options = [('coverage', None, 'run tests using coverage.py')]
 
@@ -36,7 +36,7 @@ class test(Command):
 
 
 def long_description():
-    """Get the long description from the README"""
+    """Get the long description from the README."""
     with open(os.path.join(sys.path[0], 'README.rst')) as readme:
         return readme.read()
 

@@ -23,7 +23,7 @@ __all__ = ['main', 'test']
 
 
 def findtests(paths):
-    """Yield tests in paths in sorted order"""
+    """Yield tests in paths in sorted order."""
     for p in paths:
         if os.path.isdir(p):
             for root, dirs, files in os.walk(p):
@@ -41,6 +41,7 @@ def regex(pattern, s):
 
     >>> [bool(regex(r, 'foobar')) for r in ('foo.*', '***')]
     [True, False]
+
     """
     try:
         return re.match(pattern + r'\Z', s)
@@ -77,7 +78,7 @@ annotations = {'glob': glob, 're': regex}
 
 
 def match(el, l):
-    """Match patterns based on annotations"""
+    """Match patterns based on annotations."""
     for k in annotations:
         ann = ' (%s)\n' % k
         if el.endswith(ann) and annotations[k](el[:-len(ann)], l[:-1]):
@@ -86,7 +87,7 @@ def match(el, l):
 
 
 class SequenceMatcher(difflib.SequenceMatcher, object):
-    """Like difflib.SequenceMatcher, but matches globs and regexes"""
+    """Like difflib.SequenceMatcher, but matches globs and regexes."""
 
     def find_longest_match(self, alo, ahi, blo, bhi):
         """Find longest matching block in a[alo:ahi] and b[blo:bhi]"""
@@ -115,6 +116,7 @@ def unified_diff(a, b, fromfile='', tofile='', fromfiledate='',
     """Compare two sequences of lines; generate the delta as a unified diff.
 
     This is like difflib.unified_diff(), but allows custom matchers.
+
     """
     started = False
     for group in matcher(None, a, b).get_grouped_opcodes(n):
@@ -146,7 +148,7 @@ escapemap.update({'\\': '\\\\', '\r': r'\r', '\t': r'\t'})
 
 
 def escape(s):
-    """Like the string-escape codec, but doesn't escape quotes"""
+    """Like the string-escape codec, but doesn't escape quotes."""
     return escapesub(lambda m: escapemap[m.group(0)], s[:-1]) + ' (esc)\n'
 
 
@@ -156,6 +158,7 @@ def makeresetsigpipe():
     Doing subprocess.Popen(..., preexec_fn=makeresetsigpipe()) will prevent
     Python's SIGPIPE handler (SIG_IGN) from being inherited by the
     child process.
+
     """
     if sys.platform == 'win32' or getattr(signal, 'SIGPIPE', None) is None:
         return None
@@ -167,6 +170,7 @@ def encodeinput(s):
 
     For Python 2, this returns the string as-is. For Python 3, it encodes it
     based on the locale (to match open() decoding in the same manner).
+
     """
     # This is absurd. Surely there's a better way?!
     if sys.platform == 'win32' or (3, 0) < sys.version_info >= (3, 3):
@@ -185,6 +189,7 @@ def test(path, shell, indent=2):
 
     If a test exits with return code 80, the actual output is set to
     None and diff is set to [].
+
     """
     indent = ' ' * indent
     cmdline = '%s$ ' % indent
@@ -267,6 +272,7 @@ def prompt(question, answers, auto=None):
 
     If auto is set, the question is answered automatically with the
     specified value.
+
     """
     default = [c for c in answers if c.isupper()]
     while True:
@@ -288,6 +294,7 @@ def log(msg=None, verbosemsg=None, verbose=False):
     """Write msg to standard out and flush.
 
     If verbose is True, write verbosemsg instead.
+
     """
     if verbose:
         msg = verbosemsg
@@ -297,7 +304,7 @@ def log(msg=None, verbosemsg=None, verbose=False):
 
 
 def patch(cmd, diff):
-    """Run echo [lines from diff] | cmd -p0"""
+    """Run echo [lines from diff] | cmd -p0."""
     p = subprocess.Popen([cmd, '-p0'], bufsize=-1, stdin=subprocess.PIPE,
                          universal_newlines=True,
                          preexec_fn=makeresetsigpipe(),
@@ -317,6 +324,7 @@ def run(paths, tmpdir, shell, quiet=False, verbose=False, patchcmd=None,
     changed output should be merged back into the original test. The
     answer is read from stdin. If 'y', the test is patched using patch
     based on the changed output.
+
     """
     cwd = os.getcwd()
     seen = set()
@@ -378,7 +386,7 @@ def run(paths, tmpdir, shell, quiet=False, verbose=False, patchcmd=None,
 
 
 def which(cmd):
-    """Return the patch to cmd or None if not found"""
+    """Return the patch to cmd or None if not found."""
     for p in os.environ['PATH'].split(os.pathsep):
         path = os.path.join(p, cmd)
         if os.access(path, os.X_OK):
@@ -387,13 +395,13 @@ def which(cmd):
 
 
 def expandpath(path):
-    """Expands ~ and environment variables in path"""
+    """Expands ~ and environment variables in path."""
     return os.path.expanduser(os.path.expandvars(path))
 
 
 class OptionParser(optparse.OptionParser):
-    """Like optparse.OptionParser, but supports setting values through
-    CRAM= and .cramrc."""
+    """Like optparse.OptionParser, but supports setting values through CRAM=
+    and .cramrc."""
 
     def __init__(self, *args, **kwargs):
         self._config_opts = {}
@@ -443,6 +451,7 @@ def main(args):
     """Main entry point.
 
     args should not contain the script name.
+
     """
     if sys.platform == 'win32':
         shell = 'cmd'
