@@ -87,6 +87,7 @@ def match(el, l):
 
 
 class SequenceMatcher(difflib.SequenceMatcher, object):
+
     """Like difflib.SequenceMatcher, but matches globs and regexes."""
 
     def find_longest_match(self, alo, ahi, blo, bhi):
@@ -400,6 +401,7 @@ def expandpath(path):
 
 
 class OptionParser(optparse.OptionParser):
+
     """Like optparse.OptionParser, but supports setting values through CRAM=
     and .cramrc."""
 

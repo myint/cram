@@ -9,6 +9,7 @@ from distutils.core import setup, Command
 
 
 class test(Command):
+
     """Runs doctests and Cram tests."""
     description = 'run test suite'
     user_options = [('coverage', None, 'run tests using coverage.py')]
