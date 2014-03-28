@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Functional testing framework for command line applications"""
+"""Functional testing framework for command line applications."""
 
 import difflib
 import itertools
@@ -128,7 +128,7 @@ def unified_diff(a, b, fromfile='', tofile='', fromfiledate='',
             yield '+++ %s%s%s' % (tofile, todate, lineterm)
             started = True
         i1, i2, j1, j2 = group[0][1], group[-1][2], group[0][3], group[-1][4]
-        yield "@@ -%d,%d +%d,%d @@%s" % (i1 + 1, i2 - i1, j1 + 1, j2 - j1,
+        yield '@@ -%d,%d +%d,%d @@%s' % (i1 + 1, i2 - i1, j1 + 1, j2 - j1,
                                          lineterm)
         for tag, i1, i2, j1, j2 in group:
             if tag == 'equal':

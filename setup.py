@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Installs cram"""
+"""Installs cram."""
 
 from __future__ import with_statement
 
