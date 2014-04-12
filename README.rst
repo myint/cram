@@ -2,7 +2,7 @@
  Cram: It's test time
 ======================
 
-.. image:: https://travis-ci.org/myint/cram.png?branch=master
+.. image:: https://travis-ci.org/myint/cram.svg?branch=master
     :target: https://travis-ci.org/myint/cram
     :alt: Build status
 
