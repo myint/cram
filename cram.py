@@ -192,7 +192,19 @@ def test(path, shell, indent=2):
     None and diff is set to [].
 
     """
-    indent = ' ' * indent
+    if indent:
+        indent = ' ' * indent
+    else:
+        # Detect indentation.
+        with open(path, 'r') as input_file:
+            for line in input_file:
+                if re.match(r' +\$', line):
+                    indent = line[:len(line) - len(line.lstrip())]
+                    break
+
+    if not indent:
+        raise SystemExit('--indent is required')
+
     cmdline = '%s$ ' % indent
     conline = '%s> ' % indent
 
@@ -479,7 +491,7 @@ def main(args):
                  help='keep temporary directories')
     p.add_option('--shell', action='store', default=shell, metavar='PATH',
                  help='shell to use for running tests')
-    p.add_option('--indent', action='store', default=2, metavar='NUM',
+    p.add_option('--indent', action='store', default=None, metavar='NUM',
                  type='int', help='number of spaces to use for indentation')
     opts, paths = p.parse_args(args)
 
