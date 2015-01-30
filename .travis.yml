@@ -16,4 +16,4 @@ install:
 
 script:
     - python setup.py test
-    - ./cram.py --preserve-env ./tests/simple.t
+    - ./cram.py --preserve-env ./examples/bare.t
