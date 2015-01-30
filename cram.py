@@ -166,6 +166,11 @@ def makeresetsigpipe():
     return lambda: signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
 
+def get_encoding():
+    """Return preferred encoding."""
+    return locale.getpreferredencoding() or sys.getdefaultencoding()
+
+
 def encodeinput(s):
     """Encode s so it can be used as subprocess input.
 
@@ -176,7 +181,7 @@ def encodeinput(s):
     # This is absurd. Surely there's a better way?!
     if sys.platform == 'win32' or (3, 0) < sys.version_info >= (3, 3):
         return s
-    return s.encode(locale.getpreferredencoding())
+    return s.encode(get_encoding())
 
 
 def test(path, shell, indent=2):

@@ -7,8 +7,13 @@ python:
     - "3.3"
     - "3.4"
 
+env:
+    -
+    - LANG=
+
 install:
     - python setup.py --quiet install
 
 script:
     - python setup.py test
+    - ./cram.py --preserve-env ./tests/simple.t
