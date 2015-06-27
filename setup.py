@@ -64,7 +64,7 @@ setuptools.setup(
     name='cram',
     py_modules=['cram'],
     entry_points={
-        'console_scripts': ['cram = cram:main']},
+        'console_scripts': ['cram = cram:run_main']},
     url='http://bitheap.org/cram/',
     version='0.5',
 )

@@ -466,7 +466,7 @@ class OptionParser(optparse.OptionParser):
             self.error(str(sys.exc_info()[1]))
 
 
-def main(args=sys.argv[1:]):
+def main(args):
     """Main entry point.
 
     args should not contain the script name.
@@ -563,8 +563,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
         else:
             shutil.rmtree(tmpdir)
 
-if __name__ == '__main__':
+
+def run_main():
     try:
         sys.exit(main(sys.argv[1:]))
     except KeyboardInterrupt:
-        pass
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    run_main()
