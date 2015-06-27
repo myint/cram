@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-"""Installs cram."""
 
-from __future__ import with_statement
+"""Installs cram."""
 
 import os
 import sys
-from distutils.core import setup, Command
+
+import setuptools
 
 
-class test(Command):
+class test(setuptools.Command):
 
     """Runs doctests and Cram tests."""
     description = 'run test suite'
@@ -41,7 +41,7 @@ def long_description():
     with open(os.path.join(sys.path[0], 'README.rst')) as readme:
         return readme.read()
 
-setup(
+setuptools.setup(
     author='Brodie Rao',
     author_email='brodie@bitheap.org',
     classifiers=[
@@ -58,13 +58,13 @@ setup(
     ],
     cmdclass={'test': test},
     description='A simple testing framework for command line applications',
-    download_url='http://bitheap.org/cram/cram-0.5.tar.gz',
     keywords='automatic functional test framework',
     license='GNU GPL',
     long_description=long_description(),
     name='cram',
     py_modules=['cram'],
-    scripts=['scripts/cram'],
+    entry_points={
+        'console_scripts': ['cram = cram:main']},
     url='http://bitheap.org/cram/',
     version='0.5',
 )

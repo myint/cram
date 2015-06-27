@@ -466,7 +466,7 @@ class OptionParser(optparse.OptionParser):
             self.error(str(sys.exc_info()[1]))
 
 
-def main(args):
+def main(args=sys.argv[1:]):
     """Main entry point.
 
     args should not contain the script name.
