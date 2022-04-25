@@ -9,6 +9,14 @@
 Cram is a functional testing framework for command line applications
 based on Mercurial_'s `unified test format`_.
 
+This repository is based on cram v0.5, circa mid 2012, and includes
+enhancements for supporting Python 3.x.
+
+Development of the original cram continues at https://github.com/brodie/cram ,
+which now also supports Python 3.x.
+
+----
+
 Cram tests look like snippets of interactive shell sessions. Cram runs
 each command and compares the command output in the test with the
 command's actual output.
@@ -83,27 +91,12 @@ The format in a nutshell:
 .. _Cram's own test suite: http://bitbucket.org/brodie/cram/src/tip/tests/cram.t
 .. _Perl-compatible regular expressions: http://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions
 
-
-Download
---------
-
-* cram-0.5.tar.gz_ (22 KB, requires Python 2.4-2.7 or Python 3.1-3.2)
-
-.. _cram-0.5.tar.gz: http://bitheap.org/cram/cram-0.5.tar.gz
-
 Installation
 ------------
 
-You can use pip_ to install Cram::
+You can use pip_ to install Cram from this repository::
 
-    $ pip install cram
-
-Or you can install Cram the old fashioned way::
-
-    $ wget http://bitheap.org/cram/cram-0.5.tar.gz
-    $ tar zxvf cram-0.5.tar.gz
-    $ cd cram-0.5.tar.gz
-    $ python setup.py install
+    $ pip install "git+https://github.com/myint/cram"
 
 .. _pip: http://pypi.python.org/pypi/pip
 
